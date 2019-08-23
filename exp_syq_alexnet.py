@@ -291,8 +291,7 @@ from tensorpack.dataflow.dftools import *
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--gpu', help='the physical ids of GPUs to use')
-    parser.add_argument('--load', default='/data3/zhou164/SYQ-master/examples/SYQ-AlexNet/floatingpoint_alexnet.npy')
-    parser.add_argument('--load2', default='/data3/')
+    parser.add_argument('--load', default='')
     parser.add_argument('--data', help='ILSVRC dataset dir', default='/data3/zhou164/imagenet_raw/imagenet_image')
     parser.add_argument('--run', help='run on a list of images with the pretrained model', nargs='*')
     parser.add_argument('--eta', type=float, default=0.05)
@@ -328,16 +327,12 @@ if __name__ == '__main__':
     assert len(args.num_epochs) == len(args.learning_rate)
     config = get_config()
 
-    PATH_npz = '/data3/zhou164/SYQ-master/examples/SYQ-AlexNet/alexnet_npz.npz'
-#    if 1:
-#        if args.load2.endswith('.npz'):
-#            config.session_init = DictRestore(dict(np.load(args.load2, encoding='latin1')))
-#        else:
-#            config.session_init = SaverRestore(args.load)
-#
-#    if args.gpu:
-#        config.nr_tower = len(args.gpu.split(','))
-#    SyncMultiGPUTrainer(config).train()
+    if 0:
+        config.session_init = SaverRestore(args.load)
+
+    if args.gpu:
+        config.nr_tower = len(args.gpu.split(','))
+    SyncMultiGPUTrainer(config).train()
     
     ds=get_data('train')
     TestDataSpeed(ds, 500000, warmup=100).start()
