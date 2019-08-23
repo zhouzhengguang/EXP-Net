@@ -14,5 +14,5 @@ EXP-Net:  `python exp_svhn_dorefa.py --dorefa 1,1,32 --gpu 0`
 * For ImageNet      
 Baseline: `python syq_alexnet.py --data <raw data path> --eta 0.0 --name <log name> --gpu 0`      
 EXP-Net:  `python exp_syq_alexnet.py --data <raw data path> --eta 0.0 --name <log name> --gpu 0`      
-* Result   
+# Result   
 ![](SVHN.png)
